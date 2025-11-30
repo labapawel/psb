@@ -54,10 +54,4 @@ Aplikacja napisana w Angularze, która pozwala na:
     * **5. Mix Kredytowy** (Ikona: Dom + Samochód + Karta): Zróżnicowanie produktów.
 4.  **Tło:** Brak tła (transparentne tło lub czyste, białe tło - zależnie od możliwości narzędzia, najlepiej **czysty biały background** dla eksportu).
 
-**Ważna instrukcja dla generatora:** Upewnij się, że tekst i równanie są czytelne, a układ graficzny jest profesjonalny, idealny do prezentacji bankowej.
 
----
-
-### **Prompt Końcowy do Wykorzystania:**
-
-**"Profesjonalna infografika przedstawiająca mechanizm Scoringu Kredytowego. Schemat powinien zawierać centralny wynik 'CREDIT SCORE' i pięć głównych czynników w otoczeniu (Historia Kredytowa, Zadłużenie, Długość Historii, Liczba Zapytań, Mix Kredytowy), z odpowiednimi ikonami. Grafika musi wizualnie integrować uproszczony wzór matematyczny SCORE = C + suma(W * X). Styl futurystyczny, analityczny, w tonacjach błękitu, granatu i zieleni. Na czystym, białym tle."**# psb

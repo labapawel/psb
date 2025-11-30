@@ -1,0 +1,266 @@
+<div class="stepper">
+
+    <div class="calculator-container">
+        <h1>Kalkulator Scoringu Kredytowego</h1>
+
+        <div class="stepper">
+            <div class="step" [class.active]="currentStep >= 1">1. Dane Osobowe</div>
+            <div class="step" [class.active]="currentStep >= 2">2. Finanse</div>
+            <div class="step" [class.active]="currentStep >= 3">3. Kredyt</div>
+            <div class="step" [class.active]="currentStep >= 4">4. Historia</div>
+            <div class="step" [class.active]="currentStep >= 5">5. Podsumowanie</div>
+        </div>
+
+        <form [formGroup]="creditForm" (ngSubmit)="submit()">
+
+            <!-- Step 1: Personal Info -->
+            @if (currentStep === 1) {
+            <div class="step-content" formGroupName="personalInfo">
+                <h2>Dane Osobowe</h2>
+                <div class="form-group">
+                    <label for="firstName">Imię</label>
+                    <input id="firstName" type="text" formControlName="firstName"
+                        [class.invalid]="creditForm.get('personalInfo.firstName')?.invalid && creditForm.get('personalInfo.firstName')?.touched">
+                    @if (creditForm.get('personalInfo.firstName')?.invalid &&
+                    creditForm.get('personalInfo.firstName')?.touched) {
+                    <div class="error-message">Imię jest wymagane.</div>
+                    }
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Nazwisko</label>
+                    <input id="lastName" type="text" formControlName="lastName"
+                        [class.invalid]="creditForm.get('personalInfo.lastName')?.invalid && creditForm.get('personalInfo.lastName')?.touched">
+                    @if (creditForm.get('personalInfo.lastName')?.invalid &&
+                    creditForm.get('personalInfo.lastName')?.touched) {
+                    <div class="error-message">Nazwisko jest wymagane.</div>
+                    }
+                </div>
+                <div class="form-group">
+                    <label for="dob">Data urodzenia</label>
+                    <input id="dob" type="date" formControlName="dob"
+                        [class.invalid]="creditForm.get('personalInfo.dob')?.invalid && creditForm.get('personalInfo.dob')?.touched">
+                    @if (creditForm.get('personalInfo.dob')?.invalid && creditForm.get('personalInfo.dob')?.touched)
+                    {
+                    <div class="error-message">Data urodzenia jest wymagana.</div>
+                    }
+                </div>
+                <div class="form-group">
+                    <label for="education">Wykształcenie</label>
+                    <select id="education" formControlName="education"
+                        [class.invalid]="creditForm.get('personalInfo.education')?.invalid && creditForm.get('personalInfo.education')?.touched">
+                        <option value="">Wybierz...</option>
+                        <option value="primary">Podstawowe</option>
+                        <option value="vocational">Zawodowe</option>
+                        <option value="secondary">Średnie</option>
+                        <option value="higher">Wyższe</option>
+                    </select>
+                    @if (creditForm.get('personalInfo.education')?.invalid &&
+                    creditForm.get('personalInfo.education')?.touched) {
+                    <div class="error-message">Wybierz wykształcenie.</div>
+                    }
+                </div>
+                <div class="form-group">
+                    <label for="maritalStatus">Stan cywilny</label>
+                    <select id="maritalStatus" formControlName="maritalStatus"
+                        [class.invalid]="creditForm.get('personalInfo.maritalStatus')?.invalid && creditForm.get('personalInfo.maritalStatus')?.touched">
+                        <option value="">Wybierz...</option>
+                        <option value="single">Kawaler/Panna</option>
+                        <option value="married">Żonaty/Zamężna</option>
+                        <option value="divorced">Rozwiedziony/a</option>
+                        <option value="widowed">Wdowiec/Wdowa</option>
+                    </select>
+                    @if (creditForm.get('personalInfo.maritalStatus')?.invalid &&
+                    creditForm.get('personalInfo.maritalStatus')?.touched) {
+                    <div class="error-message">Wybierz stan cywilny.</div>
+                    }
+                </div>
+                <div class="form-group">
+                    <label for="dependents">Liczba osób na utrzymaniu</label>
+                    <input id="dependents" type="number" formControlName="dependents" min="0"
+                        [class.invalid]="creditForm.get('personalInfo.dependents')?.invalid && creditForm.get('personalInfo.dependents')?.touched">
+                    @if (creditForm.get('personalInfo.dependents')?.invalid &&
+                    creditForm.get('personalInfo.dependents')?.touched) {
+                    <div class="error-message">Podaj poprawną liczbę osób (min. 0).</div>
+                    }
+                </div>
+            </div>
+            }
+
+            <!-- Step 2: Financial Info -->
+            @if (currentStep === 2) {
+            <div class="step-content" formGroupName="financialInfo">
+                <h2>Finanse</h2>
+                <div class="form-group">
+                    <label for="income">Miesięczny dochód netto (PLN)</label>
+                    <input id="income" type="number" formControlName="income" min="0"
+                        [class.invalid]="creditForm.get('financialInfo.income')?.invalid && creditForm.get('financialInfo.income')?.touched">
+                    @if (creditForm.get('financialInfo.income')?.invalid &&
+                    creditForm.get('financialInfo.income')?.touched) {
+                    <div class="error-message">Podaj dochód (min. 0).</div>
+                    }
+                </div>
+                <div class="form-group">
+                    <label for="expenses">Miesięczne wydatki stałe (PLN)</label>
+                    <input id="expenses" type="number" formControlName="expenses" min="0"
+                        [class.invalid]="creditForm.get('financialInfo.expenses')?.invalid && creditForm.get('financialInfo.expenses')?.touched">
+                    @if (creditForm.get('financialInfo.expenses')?.invalid &&
+                    creditForm.get('financialInfo.expenses')?.touched) {
+                    <div class="error-message">Podaj wydatki (min. 0).</div>
+                    }
+                </div>
+                <div class="form-group">
+                    <label for="employmentType">Forma zatrudnienia</label>
+                    <select id="employmentType" formControlName="employmentType"
+                        [class.invalid]="creditForm.get('financialInfo.employmentType')?.invalid && creditForm.get('financialInfo.employmentType')?.touched">
+                        <option value="">Wybierz...</option>
+                        <option value="contract_employment">Umowa o pracę</option>
+                        <option value="b2b">B2B / Działalność gospodarcza</option>
+                        <option value="civil_contract">Umowa cywilnoprawna</option>
+                        <option value="pension">Emerytura/Renta</option>
+                        <option value="unemployed">Brak zatrudnienia</option>
+                        <option value="other">Inne</option>
+                    </select>
+                    @if (creditForm.get('financialInfo.employmentType')?.invalid &&
+                    creditForm.get('financialInfo.employmentType')?.touched) {
+                    <div class="error-message">Wybierz formę zatrudnienia.</div>
+                    }
+                </div>
+            </div>
+            }
+
+            <!-- Step 3: Credit Info -->
+            @if (currentStep === 3) {
+            <div class="step-content" formGroupName="creditInfo">
+                <h2>Dane Kredytowe</h2>
+                <div class="form-group">
+                    <label for="amount">Kwota kredytu (PLN)</label>
+                    <input id="amount" type="number" formControlName="amount" min="1000"
+                        [class.invalid]="creditForm.get('creditInfo.amount')?.invalid && creditForm.get('creditInfo.amount')?.touched">
+                    @if (creditForm.get('creditInfo.amount')?.invalid &&
+                    creditForm.get('creditInfo.amount')?.touched) {
+                    <div class="error-message">Kwota min. 1000 PLN.</div>
+                    }
+                </div>
+                <div class="form-group">
+                    <label for="term">Okres kredytowania (miesiące)</label>
+                    <input id="term" type="number" formControlName="term" min="3"
+                        [class.invalid]="creditForm.get('creditInfo.term')?.invalid && creditForm.get('creditInfo.term')?.touched">
+                    @if (creditForm.get('creditInfo.term')?.invalid && creditForm.get('creditInfo.term')?.touched) {
+                    <div class="error-message">Okres min. 3 miesiące.</div>
+                    }
+                </div>
+                <div class="form-group">
+                    <label for="rate">Oprocentowanie (%)</label>
+                    <input id="rate" type="number" formControlName="rate" min="0" step="0.1"
+                        [class.invalid]="creditForm.get('creditInfo.rate')?.invalid && creditForm.get('creditInfo.rate')?.touched">
+                    @if (creditForm.get('creditInfo.rate')?.invalid && creditForm.get('creditInfo.rate')?.touched) {
+                    <div class="error-message">Podaj oprocentowanie.</div>
+                    }
+                </div>
+                <div class="form-group">
+                    <label for="type">Cel kredytu</label>
+                    <select id="type" formControlName="type"
+                        [class.invalid]="creditForm.get('creditInfo.type')?.invalid && creditForm.get('creditInfo.type')?.touched">
+                        <option value="">Wybierz...</option>
+                        <option value="cash">Gotówkowy</option>
+                        <option value="mortgage">Hipoteczny</option>
+                        <option value="car">Samochodowy</option>
+                        <option value="consolidation">Konsolidacyjny</option>
+                    </select>
+                    @if (creditForm.get('creditInfo.type')?.invalid && creditForm.get('creditInfo.type')?.touched) {
+                    <div class="error-message">Wybierz cel kredytu.</div>
+                    }
+                </div>
+            </div>
+            }
+
+            <!-- Step 4: Credit History -->
+            @if (currentStep === 4) {
+            <div class="step-content" formGroupName="creditHistory">
+                <h2>Historia Kredytowa</h2>
+                <div class="form-group">
+                    <label for="historyLength">Długość historii kredytowej (miesiące)</label>
+                    <input id="historyLength" type="number" formControlName="historyLength" min="0"
+                        [class.invalid]="creditForm.get('creditHistory.historyLength')?.invalid && creditForm.get('creditHistory.historyLength')?.touched">
+                    @if (creditForm.get('creditHistory.historyLength')?.invalid &&
+                    creditForm.get('creditHistory.historyLength')?.touched) {
+                    <div class="error-message">Wartość wymagana (min. 0).</div>
+                    }
+                </div>
+                <div class="form-group">
+                    <label for="paidOnTime">Liczba spłaconych kredytów w terminie</label>
+                    <input id="paidOnTime" type="number" formControlName="paidOnTime" min="0"
+                        [class.invalid]="creditForm.get('creditHistory.paidOnTime')?.invalid && creditForm.get('creditHistory.paidOnTime')?.touched">
+                    @if (creditForm.get('creditHistory.paidOnTime')?.invalid &&
+                    creditForm.get('creditHistory.paidOnTime')?.touched) {
+                    <div class="error-message">Wartość wymagana (min. 0).</div>
+                    }
+                </div>
+                <div class="form-group">
+                    <label for="paidWithDelay">Liczba kredytów spłaconych z opóźnieniem (>30 dni)</label>
+                    <input id="paidWithDelay" type="number" formControlName="paidWithDelay" min="0"
+                        [class.invalid]="creditForm.get('creditHistory.paidWithDelay')?.invalid && creditForm.get('creditHistory.paidWithDelay')?.touched">
+                    @if (creditForm.get('creditHistory.paidWithDelay')?.invalid &&
+                    creditForm.get('creditHistory.paidWithDelay')?.touched) {
+                    <div class="error-message">Wartość wymagana (min. 0).</div>
+                    }
+                </div>
+                <div class="form-group">
+                    <label for="creditInquiries">Liczba zapytań kredytowych w ostatnich 12 miesiącach</label>
+                    <input id="creditInquiries" type="number" formControlName="creditInquiries" min="0"
+                        [class.invalid]="creditForm.get('creditHistory.creditInquiries')?.invalid && creditForm.get('creditHistory.creditInquiries')?.touched">
+                    @if (creditForm.get('creditHistory.creditInquiries')?.invalid &&
+                    creditForm.get('creditHistory.creditInquiries')?.touched) {
+                    <div class="error-message">Wartość wymagana (min. 0).</div>
+                    }
+                </div>
+            </div>
+            }
+
+            <!-- Step 5: Summary -->
+            @if (currentStep === 5) {
+            <div class="step-content">
+                <h2>Podsumowanie</h2>
+                <p>Proszę sprawdzić poprawność wprowadzonych danych.</p>
+
+                <div class="summary-section">
+                    <h3>Dane Osobowe</h3>
+                    <p>Imię i Nazwisko: {{ creditForm.get('personalInfo.firstName')?.value }} {{
+                        creditForm.get('personalInfo.lastName')?.value }}</p>
+                    <p>Data urodzenia: {{ creditForm.get('personalInfo.dob')?.value }}</p>
+                </div>
+
+                <div class="summary-section">
+                    <h3>Finanse</h3>
+                    <p>Dochód: {{ creditForm.get('financialInfo.income')?.value }} PLN</p>
+                    <p>Wydatki: {{ creditForm.get('financialInfo.expenses')?.value }} PLN</p>
+                </div>
+
+                <div class="summary-section">
+                    <h3>Kredyt</h3>
+                    <p>Kwota: {{ creditForm.get('creditInfo.amount')?.value }} PLN</p>
+                    <p>Okres: {{ creditForm.get('creditInfo.term')?.value }} mies.</p>
+                </div>
+            </div>
+            }
+
+            <div class="actions">
+                <button type="button" (click)="prevStep()" [disabled]="currentStep === 1">Wstecz</button>
+
+                @if (currentStep < totalSteps) { <button type="button" (click)="nextStep()">
+                    Dalej</button>
+                    <!-- Note: strict validation per step would require checking specific group validity, 
+             for simplicity using global valid or just allowing next for now, 
+             but ideally should check group validity. 
+             Let's just allow navigation for now or check group if possible. 
+             Actually, let's keep it simple and allow next, validation messages will show on touch. -->
+                    }
+
+                    @if (currentStep === totalSteps) {
+                    <button type="submit" [disabled]="!creditForm.valid">Oblicz Score</button>
+                    }
+            </div>
+
+        </form>
+    </div>
+</div>

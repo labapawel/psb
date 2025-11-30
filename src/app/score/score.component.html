@@ -1,0 +1,65 @@
+<div class="score-container">
+    <div class="header">
+        <h1>Twój Wynik Kredytowy</h1>
+        <p class="subtitle">Analiza zdolności kredytowej</p>
+    </div>
+
+    @if (!hasCapacity) {
+    <!-- Brak zdolności kredytowej -->
+    <div class="error-message-box">
+        <div class="error-icon">⚠️</div>
+        <h2>BRAK ZDOLNOŚCI KREDYTOWEJ</h2>
+        <p class="error-description">
+            Niestety, na podstawie wprowadzonych danych nie posiadasz wystarczającej zdolności kredytowej do
+            zaciągnięcia tego kredytu.
+        </p>
+        <div class="failure-details">
+            <pre>{{ failureMessage }}</pre>
+        </div>
+    </div>
+    } @else {
+    <!-- Normalny wyświetlacz score -->
+    <div class="score-display">
+        <div class="score-circle" [style.borderColor]="scoreColor">
+            <div class="score-label">CREDIT SCORE</div>
+            <div class="score-value" [style.color]="scoreColor">{{ score }}</div>
+            <div class="score-desc" [style.color]="scoreColor">{{ scoreDescription }}</div>
+            <div class="score-max">/ 850</div>
+        </div>
+    </div>
+
+    <div class="factors-grid">
+        <div class="factor-card" [ngClass]="getFactorStatus('history')">
+            <div class="icon">📅</div>
+            <h3>Historia Kredytowa</h3>
+            <p>Terminowość spłat</p>
+        </div>
+        <div class="factor-card" [ngClass]="getFactorStatus('debt')">
+            <div class="icon">⚖️</div>
+            <h3>Zadłużenie</h3>
+            <p>Stosunek długu do dochodu</p>
+        </div>
+        <div class="factor-card" [ngClass]="getFactorStatus('age')">
+            <div class="icon">⏳</div>
+            <h3>Długość Historii</h3>
+            <p>Wiek kont kredytowych</p>
+        </div>
+        <div class="factor-card" [ngClass]="getFactorStatus('newCredits')">
+            <div class="icon">🔍</div>
+            <h3>Nowe Kredyty</h3>
+            <p>Liczba zapytań</p>
+        </div>
+        <div class="factor-card" [ngClass]="getFactorStatus('mix')">
+            <div class="icon">💳</div>
+            <h3>Mix Kredytowy</h3>
+            <p>Różnorodność produktów</p>
+        </div>
+    </div>
+    }
+
+    <div class="actions">
+        <button (click)="ngOnInit()">Odśwież</button>
+        <a routerLink="/calc" class="btn-secondary">Przelicz ponownie</a>
+        <a routerLink="/" class="btn-secondary">Strona główna</a>
+    </div>
+</div>

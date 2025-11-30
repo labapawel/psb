@@ -1,0 +1,114 @@
+<div class="settings-container">
+    <h1>Konfiguracja Wag Score</h1>
+    <p class="subtitle">Dostosuj wpływ poszczególnych czynników na wynik końcowy</p>
+
+    <form [formGroup]="weightsForm" (ngSubmit)="save()">
+
+        <div class="section">
+            <h2>Dochód i Wydatki</h2>
+            <div class="form-group">
+                <label>Bonus za wysoki dochód (&gt;2000)</label>
+                <input type="number" formControlName="incomeHighBonus">
+            </div>
+            <div class="form-group">
+                <label>Bonus za średni dochód (&gt;1000)</label>
+                <input type="number" formControlName="incomeMedBonus">
+            </div>
+            <div class="form-group">
+                <label>Kara za niski dochód (&lt;500)</label>
+                <input type="number" formControlName="incomeLowPenalty">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Zatrudnienie</h2>
+            <div class="form-group">
+                <label>Bonus za umowę o pracę</label>
+                <input type="number" formControlName="contractBonus">
+            </div>
+            <div class="form-group">
+                <label>Bonus za B2B / Działalność gospodarcza</label>
+                <input type="number" formControlName="b2bBonus">
+            </div>
+            <div class="form-group">
+                <label>Bonus za umowę cywilnoprawną</label>
+                <input type="number" formControlName="civilContractBonus">
+            </div>
+            <div class="form-group">
+                <label>Bonus za emeryturę/rentę</label>
+                <input type="number" formControlName="pensionBonus">
+            </div>
+            <div class="form-group">
+                <label>Kara za brak zatrudnienia</label>
+                <input type="number" formControlName="unemployedPenalty">
+            </div>
+            <div class="form-group">
+                <label>Bonus za inne formy zatrudnienia</label>
+                <input type="number" formControlName="otherEmploymentBonus">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Wykształcenie</h2>
+            <div class="form-group">
+                <label>Bonus za wykształcenie wyższe</label>
+                <input type="number" formControlName="higherEducationBonus">
+            </div>
+            <div class="form-group">
+                <label>Bonus za wykształcenie średnie</label>
+                <input type="number" formControlName="secondaryEducationBonus">
+            </div>
+            <div class="form-group">
+                <label>Bonus za wykształcenie zawodowe</label>
+                <input type="number" formControlName="vocationalEducationBonus">
+            </div>
+            <div class="form-group">
+                <label>Bonus za wykształcenie podstawowe</label>
+                <input type="number" formControlName="primaryEducationBonus">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Historia Kredytowa</h2>
+            <div class="form-group">
+                <label>Bonus za długość historii (za miesiąc, max 100)</label>
+                <input type="number" formControlName="historyLengthBonus">
+            </div>
+            <div class="form-group">
+                <label>Mnożnik za terminowe spłaty (x ilość)</label>
+                <input type="number" formControlName="onTimeMultiplier">
+            </div>
+            <div class="form-group">
+                <label>Mnożnik kary za opóźnienia (x ilość)</label>
+                <input type="number" formControlName="delayMultiplier">
+            </div>
+            <div class="form-group">
+                <label>Kara za zapytanie kredytowe (x ilość)</label>
+                <input type="number" formControlName="inquiryPenalty">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Inne</h2>
+            <div class="form-group">
+                <label>Bonus za wiek (25-60 lat)</label>
+                <input type="number" formControlName="ageBonus">
+            </div>
+            <div class="form-group">
+                <label>Minimum egzystencji na osobę (PLN)</label>
+                <input type="number" formControlName="minSubsistencePerPerson">
+            </div>
+            
+        </div>
+
+        <div class="actions">
+            <button type="button" class="btn-secondary" (click)="router.navigate(['/'])">Strona główna</button>
+            <button type="button" class="btn-secondary" (click)="resetDefaults()">Przywróć domyślne</button>
+            <button type="submit" class="btn-primary">Zapisz ustawienia</button>
+        </div>
+
+        @if (savedMessage) {
+        <div class="success-message">{{ savedMessage }}</div>
+        }
+    </form>
+</div>
